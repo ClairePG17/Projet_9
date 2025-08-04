@@ -16,9 +16,9 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue); // il n'y avait pas d'argument d'où le prb de valeur onchange undefined pour mon Select
     setValue(newValue);
-    setCollapsed(newValue);
+    setCollapsed(true); // on ferme la liste en mettant en argument true
   };
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
