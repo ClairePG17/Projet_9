@@ -24,7 +24,7 @@ const EventList = () => {
     index >= (currentPage - 1) * PER_PAGE && index < currentPage * PER_PAGE
   );
 
-  // Nombre total de pages selon la taille du filtre
+  // Nombre total de pages selon la taille du filtre 
   const pageNumber = Math.ceil((eventsByType.length || 0) / PER_PAGE);
 
   const changeType = (evtType) => {
