@@ -8,23 +8,18 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
 
-   // Si pas de données, on retourne []
-   const byDateDesc = data?.focus ? [...data.focus] : [];
-
-  // Trie par date croissante (du plus ancien au plus recent)
-  byDateDesc.sort((evtA, evtB) => 
+  // Tri par date : du plus ancien au plus recent
+  const byDateDesc = data?.focus ? [...data.focus].sort((evtA, evtB) =>
     new Date(evtA.date) - new Date(evtB.date)
-  );
+  ) : [];  
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // On passe à la prochaine carte, ou on revient à 0 si on est à la dernière.
       setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
     }, 5000);
 
-    // On nettoie le timer quand l'effet est rerun ou le composant est démonté
     return () => clearTimeout(timer);
-  }, [index, byDateDesc.length]); // L'effet dépend de index et de la longueur (données chargées)
+  }, [index, byDateDesc.length]); 
 
     return (
       <div className="SlideCardList">
@@ -44,12 +39,11 @@ const Slider = () => {
           </div>
         ))}
     
-        {/* Pagination rendue une seule fois */}
         <div className="SlideCard__paginationContainer">
           <div className="SlideCard__pagination">
             {byDateDesc.map((_, radioIdx) => (
               <input
-                key={byDateDesc[radioIdx].id} // key unique où je n'utilise pas event car il n'est plus accessible
+                key={byDateDesc[radioIdx].id} 
                 type="radio"
                 name="radio-button"
                 checked={index === radioIdx}
